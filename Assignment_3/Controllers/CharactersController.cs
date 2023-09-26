@@ -6,40 +6,40 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Assignment_3.Data.Models;
-using Assignment_3.Services.Movies;
-using Assignment_3.Data.DTOs.Movies;
+using Assignment_3.Services.Characters;
+using Assignment_3.Data.DTOs.Characters;
 using Microsoft.VisualBasic;
 using AutoMapper;
 using Assignment_3.Data.Exceptions;
 
 namespace Assignment_3.Controllers
 {
-    [Route("api/v1/Movies")]
+    [Route("api/v1/Characters")]
     [ApiController]
-    public class MoviesController : ControllerBase
+    public class CharactersController : ControllerBase
     {
-        private readonly IMovieService _service;
+        private readonly ICharacterService _service;
         private readonly IMapper _mapper;
 
-        public MoviesController(IMovieService service, IMapper mapper)
+        public CharactersController(ICharacterService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
 
-        // GET: api/Movies
+        // GET: api/Characters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieGetDTO>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters()
         {
-            return Ok(_mapper.Map<IEnumerable<MovieGetDTO>>(await _service.GetAllAsync()));
+            return Ok(_mapper.Map<IEnumerable<CharacterDTO>>(await _service.GetAllAsync()));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MovieGetDTO>> GetMovie(int id)
+        public async Task<ActionResult<CharacterDTO>> GetCharacter(int id)
         {
             try
             {
-                return Ok(_mapper.Map<MovieGetDTO>(
+                return Ok(_mapper.Map<CharacterDTO>(
                     await _service.GetByIdAsync(id)));
             }
             catch (EntityNotFoundException ex)
@@ -49,16 +49,16 @@ namespace Assignment_3.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, MoviePutDTO movie)
+        public async Task<IActionResult> PutCharacter(int id, CharacterPutDTO Character)
         {
-            if (id != movie.Id)
+            if (id != Character.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                await _service.UpdateAsync(_mapper.Map<Movie>(movie));
+                await _service.UpdateAsync(_mapper.Map<Character>(Character));
             }
             catch (EntityNotFoundException ex)
             {
@@ -69,17 +69,17 @@ namespace Assignment_3.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MovieGetDTO>> PostMovie(MoviePostDTO movie)
+        public async Task<ActionResult<CharacterDTO>> PostCharacter(CharacterPostDTO Character)
         {
-            var newMovie = await _service.AddAsync(_mapper.Map<Movie>(movie));
+            var newCharacter = await _service.AddAsync(_mapper.Map<Character>(Character));
 
-            return CreatedAtAction("GetMovie", 
-                new { id = newMovie.Id },
-                _mapper.Map<MovieGetDTO>(newMovie));
+            return CreatedAtAction("GetCharacter",
+                new { id = newCharacter.Id },
+                _mapper.Map<CharacterDTO>(newCharacter));
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        public async Task<IActionResult> DeleteCharacter(int id)
         {
             try
             {
