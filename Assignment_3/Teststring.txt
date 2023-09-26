@@ -1,0 +1,8 @@
+{
+  "title": "Harry Potter And The Chamber of Secrets",
+  "genre": "Fantasy",
+  "releaseYear": 2003,
+  "director": null,
+  "pictureUrl": null,
+  "trailerUrl": null
+}
