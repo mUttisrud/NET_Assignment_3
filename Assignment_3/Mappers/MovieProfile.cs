@@ -15,6 +15,7 @@ namespace Assignment_3.Mappers
 
             CreateMap<Movie, MoviePostDTO>().ReverseMap();
             CreateMap<Movie, MoviePutDTO>().ReverseMap();
+            CreateMap<Movie, MoviesListDTO>().ReverseMap();
         }
     }
 }

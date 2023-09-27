@@ -2,7 +2,7 @@
 
 namespace Assignment_3.Data.DTOs.Characters
 {
-    public class CharactersInMovieDTO
+    public class CharactersListDTO
     {
         public int Id { get; set; }
         [MaxLength(50)]

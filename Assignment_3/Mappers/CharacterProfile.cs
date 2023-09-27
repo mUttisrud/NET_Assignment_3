@@ -12,7 +12,7 @@ namespace Assignment_3.Mappers
                 .ForMember(characterDto => characterDto.MovieIds, options => options
                     .MapFrom(character => character.Movies.Select(Movie => Movie.Id)));
 
-            CreateMap<Character, CharactersInMovieDTO>();
+            CreateMap<Character, CharactersListDTO>();
             CreateMap<Character, CharacterPostDTO>().ReverseMap();
             CreateMap<Character, CharacterPutDTO>().ReverseMap();
         }
