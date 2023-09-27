@@ -9,11 +9,11 @@ namespace Assignment_3.Controllers {
 
     [Route("api/v1/Franchises")]
     [ApiController]
-    public class FranchiseController : ControllerBase {
+    public class FranchisesController : ControllerBase {
         private readonly IFranchiseService _service;
         private readonly IMapper _mapper;
 
-        public FranchiseController(IFranchiseService service, IMapper mapper) {
+        public FranchisesController(IFranchiseService service, IMapper mapper) {
             _service = service;
             _mapper = mapper;
         }
