@@ -11,7 +11,6 @@ using Assignment_3.Data.DTOs.Movies;
 using Microsoft.VisualBasic;
 using AutoMapper;
 using Assignment_3.Data.Exceptions;
-using Assignment_3.Data.DTOs.Characters;
 
 namespace Assignment_3.Controllers
 {
@@ -86,19 +85,6 @@ namespace Assignment_3.Controllers
             {
                 await _service.DeleteByIdAsync(id);
                 return NoContent();
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-        }
-
-        [HttpGet("{id}/Characters")]
-        public async Task<ActionResult<IEnumerable<CharactersInMovieDTO>>> GetCharactersInMovie(int id)
-        {
-            try
-            {
-                return Ok(_mapper.Map<IEnumerable<CharactersInMovieDTO>>(await _service.GetAllCharactersByMovieIdAsync(id)));
             }
             catch (EntityNotFoundException ex)
             {

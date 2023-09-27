@@ -13,6 +13,6 @@ namespace Assignment_3.Data.DTOs.Characters
         public string Gender { get; set; } = null!;
         [MaxLength(50)]
         public string? PictureUrl { get; set; }
-        public int[] MovieIds { get; set; }
+        public string[] Movies { get; set; }
     }
 }

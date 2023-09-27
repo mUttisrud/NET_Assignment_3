@@ -22,7 +22,7 @@ namespace Assignment_3.Data.Models
         public string? TrailerUrl { get; set; }
 
         //Connection to Characters
-        public ICollection<Character> Characters { get; set; } = new List<Character>();
+        public ICollection<Character>? Characters { get; set; }
 
         //Connection to Franchise
         public int FranchiseId { get; set; }
