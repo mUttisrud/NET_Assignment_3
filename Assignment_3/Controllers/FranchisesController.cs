@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Assignment_3.Controllers {
 
     [Route("api/v1/Franchises")]
+    [Produces("application/json")]
+    [ApiConventionType(typeof(DefaultApiConventions))] //This gives the correct status codes in the swagger docs
     [ApiController]
     public class FranchiseController : ControllerBase {
         private readonly IFranchiseService _service;
@@ -18,13 +20,20 @@ namespace Assignment_3.Controllers {
             _mapper = mapper;
         }
 
-        // GET: api/Franchises
+        /// <summary>
+        ///     Gets all the franchises
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FranchiseGetDTO>>> GetFranchises() {
             return Ok(_mapper.Map<IEnumerable<FranchiseGetDTO>>(await _service.GetAllAsync()));
         }
 
-        // GET: api/Franchises{id}
+        /// <summary>
+        ///     Get one franchise by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<FranchiseGetDTO>> GetFrancise(int id) {
             try {
@@ -36,24 +45,32 @@ namespace Assignment_3.Controllers {
 
             }
         }
-        // PUT: api/Francises{id}
+
+        /// <summary>
+        ///     Update one franchise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="franchise"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFranchise(int id, FranchisePutDTO franchise) {
             if (id != franchise.Id) {
                 return BadRequest();
             }
-
             try {
                 await _service.UpdateAsync(_mapper.Map<Franchise>(franchise));
             }
             catch (EntityNotFoundException ex) {
                 return NotFound(ex.Message);
             }
-
             return NoContent();
         }
 
-        // DELETE: api/Franchises{id}
+        /// <summary>
+        ///     Delete one franchise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFranchise(int id) {
             try {
@@ -65,7 +82,11 @@ namespace Assignment_3.Controllers {
             }
         }
 
-        // POST: api/Franchises
+        /// <summary>
+        ///     Add a new franchise
+        /// </summary>
+        /// <param name="franchise"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<FranchisePostDTO>> PostMovie(FranchisePostDTO franchise) {
             var newFranchise = await _service.AddAsync(_mapper.Map<Franchise>(franchise));

@@ -590,3 +590,5 @@ C:\Users\SRisne\Source\Repos\NET_Assignment_3\Assignment_3\obj\Debug\net6.0\scop
 C:\Users\SRisne\Source\Repos\NET_Assignment_3\Assignment_3\obj\Debug\net6.0\Assignment_3.csproj.CopyComplete
 C:\Users\SRisne\Source\Repos\NET_Assignment_3\Assignment_3\obj\Debug\net6.0\Assignment_3.genruntimeconfig.cache
 C:\Users\SRisne\Source\Repos\NET_Assignment_3\Assignment_3\obj\Debug\net6.0\ref\Assignment_3.dll
+C:\Users\SRisne\Source\Repos\NET_Assignment_3\Assignment_3\bin\Debug\net6.0\Assignment_3.xml
+C:\Users\SRisne\Source\Repos\NET_Assignment_3\Assignment_3\obj\Debug\net6.0\Assignment_3.xml
