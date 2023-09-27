@@ -1,4 +1,6 @@
-﻿using Assignment_3.Data.DTOs.Franchises;
+﻿using Assignment_3.Data.DTOs.Characters;
+using Assignment_3.Data.DTOs.Franchises;
+using Assignment_3.Data.DTOs.Movies;
 using Assignment_3.Data.Exceptions;
 using Assignment_3.Data.Models;
 using Assignment_3.Services.Movies;
@@ -21,12 +23,12 @@ namespace Assignment_3.Controllers {
         }
 
         /// <summary>
-        ///     Gets all the franchises
+        ///     Gets all franchises
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FranchiseGetDTO>>> GetFranchises() {
-            return Ok(_mapper.Map<IEnumerable<FranchiseGetDTO>>(await _service.GetAllAsync()));
+        public async Task<ActionResult<IEnumerable<FranchiseDTO>>> GetFranchises() {
+            return Ok(_mapper.Map<IEnumerable<FranchiseDTO>>(await _service.GetAllAsync()));
         }
 
         /// <summary>
@@ -35,9 +37,9 @@ namespace Assignment_3.Controllers {
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<FranchiseGetDTO>> GetFrancise(int id) {
+        public async Task<ActionResult<FranchiseDTO>> GetFrancise(int id) {
             try {
-                return Ok(_mapper.Map<FranchiseGetDTO>(
+                return Ok(_mapper.Map<FranchiseDTO>(
                     await _service.GetByIdAsync(id)));
             }
             catch (EntityNotFoundException ex) {
@@ -94,6 +96,41 @@ namespace Assignment_3.Controllers {
             return CreatedAtAction("GetFranchise",
                 new { id = newFranchise.Id },
                 _mapper.Map<FranchisePostDTO>(newFranchise));
+        }
+        /// <summary>
+        ///     Get characters in franchise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/Characters")]
+        public async Task<ActionResult<IEnumerable<CharactersListDTO>>> GetCharacters(int id)
+        {
+            try
+            {
+                return Ok(_mapper.Map<IEnumerable<CharactersListDTO>>(await _service.GetCharactersAsync(id)));
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        /// <summary>
+        ///     Get movies in franchise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/Movies")]
+        public async Task<ActionResult<IEnumerable<MoviesListDTO>>> GetMovies(int id)
+        {
+            try
+            {
+                return Ok(_mapper.Map<IEnumerable<MoviesListDTO>>(await _service.GetMoviesAsync(id)));
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
