@@ -20,15 +20,15 @@ namespace Assignment_3.Controllers {
 
         // GET: api/Franchises
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FranchiseGetDTO>>> GetFranchises() {
-            return Ok(_mapper.Map<IEnumerable<FranchiseGetDTO>>(await _service.GetAllAsync()));
+        public async Task<ActionResult<IEnumerable<FranchiseDTO>>> GetFranchises() {
+            return Ok(_mapper.Map<IEnumerable<FranchiseDTO>>(await _service.GetAllAsync()));
         }
 
         // GET: api/Franchises{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<FranchiseGetDTO>> GetFrancise(int id) {
+        public async Task<ActionResult<FranchiseDTO>> GetFranchise(int id) {
             try {
-                return Ok(_mapper.Map<FranchiseGetDTO>(
+                return Ok(_mapper.Map<FranchiseDTO>(
                     await _service.GetByIdAsync(id)));
             }
             catch (EntityNotFoundException ex) {
@@ -67,12 +67,12 @@ namespace Assignment_3.Controllers {
 
         // POST: api/Franchises
         [HttpPost]
-        public async Task<ActionResult<FranchisePostDTO>> PostMovie(FranchisePostDTO franchise) {
+        public async Task<ActionResult<FranchiseDTO>> PostFranchise(FranchisePostDTO franchise) {
             var newFranchise = await _service.AddAsync(_mapper.Map<Franchise>(franchise));
 
             return CreatedAtAction("GetFranchise",
                 new { id = newFranchise.Id },
-                _mapper.Map<FranchisePostDTO>(newFranchise));
+                _mapper.Map<FranchiseDTO>(newFranchise));
         }
     }
 }

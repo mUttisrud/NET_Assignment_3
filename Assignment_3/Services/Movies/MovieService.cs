@@ -15,8 +15,8 @@ namespace Assignment_3.Services.Movies
         public async Task<ICollection<Movie>> GetAllAsync()
         {
             return await _context.Movies
-                                    .Include(movie => movie.Characters)
-                                    .ToListAsync();
+                .Include(movie => movie.Characters)
+                .ToListAsync();
         }
 
         public async Task<Movie> AddAsync(Movie newMovie)
@@ -74,24 +74,25 @@ namespace Assignment_3.Services.Movies
 
             await _context.SaveChangesAsync();
         }
-        /* public void Delete(Movie entity)
-{
-throw new NotImplementedException();
-}
 
-public Movie GetById(int key)
-{
-throw new NotImplementedException();
-}
+        public async Task<ICollection<Character>> GetAllCharactersByMovieIdAsync(int id)
+        {
+            if (!await MovieExistsAsync(id))
+                throw new EntityNotFoundException(nameof(Movie), id);
 
-public Movie Save(Movie entity)
-{
-throw new NotImplementedException();
-}
+            var movie = await _context.Movies
+                .Where(movie => movie.Id == id)
+                .Include(movie => movie.Characters)
+                .FirstAsync();
 
-public Movie Update(Movie entity)
-{
-throw new NotImplementedException();
-}*/
+            List<Character> result = new List<Character>();
+
+            foreach (Character character in movie.Characters)
+            {
+                result.Add(character);
+            }
+            
+            return result;
+        }
     }
 }
