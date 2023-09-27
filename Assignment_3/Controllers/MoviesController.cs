@@ -94,11 +94,11 @@ namespace Assignment_3.Controllers
         }
 
         [HttpGet("{id}/Characters")]
-        public async Task<ActionResult<IEnumerable<CharactersInMovieDTO>>> GetCharactersInMovie(int id)
+        public async Task<ActionResult<IEnumerable<CharactersListDTO>>> GetCharactersInMovie(int id)
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<CharactersInMovieDTO>>(await _service.GetAllCharactersByMovieIdAsync(id)));
+                return Ok(_mapper.Map<IEnumerable<CharactersListDTO>>(await _service.GetAllCharactersByMovieIdAsync(id)));
             }
             catch (EntityNotFoundException ex)
             {

@@ -1,4 +1,6 @@
-﻿using Assignment_3.Data.DTOs.Franchises;
+﻿using Assignment_3.Data.DTOs.Characters;
+using Assignment_3.Data.DTOs.Franchises;
+using Assignment_3.Data.DTOs.Movies;
 using Assignment_3.Data.Exceptions;
 using Assignment_3.Data.Models;
 using Assignment_3.Services.Movies;
@@ -73,6 +75,31 @@ namespace Assignment_3.Controllers {
             return CreatedAtAction("GetFranchise",
                 new { id = newFranchise.Id },
                 _mapper.Map<FranchiseDTO>(newFranchise));
+        }
+
+        [HttpGet("{id}/Characters")]
+        public async Task<ActionResult<IEnumerable<CharactersListDTO>>> GetCharacters(int id)
+        {
+            try
+            {
+                return Ok(_mapper.Map<IEnumerable<CharactersListDTO>>(await _service.GetCharactersAsync(id)));
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        [HttpGet("{id}/Movies")]
+        public async Task<ActionResult<IEnumerable<MoviesListDTO>>> GetMovies(int id)
+        {
+            try
+            {
+                return Ok(_mapper.Map<IEnumerable<MoviesListDTO>>(await _service.GetMoviesAsync(id)));
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

@@ -4,7 +4,8 @@ using Assignment_3.Services.Movies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Assignment_3.Services.Franchises {
-    public class FranchiseService : IFranchiseService {
+    public class FranchiseService : IFranchiseService 
+    {
         private readonly Assignment3DbContext _context;
         public FranchiseService(Assignment3DbContext context) {
             _context = context;
@@ -60,6 +61,51 @@ namespace Assignment_3.Services.Franchises {
             franchise.Movies.Clear();
             _context.Franchises.Remove(franchise);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Character>> GetCharactersAsync(int id)
+        {
+            if (!await FranchiseExistsAsync(id))
+                throw new EntityNotFoundException(nameof(Franchise), id);
+
+            var franchise = await _context.Franchises
+                .Where(franchise => franchise.Id == id)
+                .Include(franchise => franchise.Movies) 
+                .ThenInclude(movie => movie.Characters)
+                .FirstAsync();
+
+            List<Character> characters = new List<Character>();
+
+            foreach (Movie movie in franchise.Movies)
+            {
+                foreach (Character character in movie.Characters)
+                {
+                    if(!characters.Contains(character))
+                        characters.Add(character);
+                }
+            }
+
+            return characters;
+        }
+
+        public async Task<ICollection<Movie>> GetMoviesAsync(int id)
+        {
+            if (!await FranchiseExistsAsync(id))
+                throw new EntityNotFoundException(nameof(Franchise), id);
+
+            var franchise = await _context.Franchises
+                .Where(franchise => franchise.Id == id)
+                .Include(franchise => franchise.Movies)
+                .FirstAsync();
+
+            List<Movie> movies = new List<Movie>();
+
+            foreach(Movie movie in franchise.Movies)
+            {
+                movies.Add(movie);
+            }
+
+            return movies;
         }
     }
 }

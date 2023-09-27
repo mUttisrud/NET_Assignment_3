@@ -2,7 +2,6 @@ using Assignment_3.Data.Models;
 using Assignment_3.Services.Franchises;
 using Assignment_3.Services.Movies;
 using Assignment_3.Services.Characters;
-using Assignment_3.Services.Franchises;
 using Microsoft.EntityFrameworkCore;
 
 namespace Assignment_3
