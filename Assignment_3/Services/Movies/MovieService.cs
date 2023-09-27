@@ -15,8 +15,8 @@ namespace Assignment_3.Services.Movies
         public async Task<ICollection<Movie>> GetAllAsync()
         {
             return await _context.Movies
-                                    .Include(movie => movie.Characters)
-                                    .ToListAsync();
+                .Include(movie => movie.Characters)
+                .ToListAsync();
         }
 
         public async Task<Movie> AddAsync(Movie newMovie)

@@ -13,6 +13,6 @@ namespace Assignment_3.Data.Models
         public string? Description { get; set; }
 
         //Connection to Movies
-        public List<Movie>? Movies { get; set; }
+        public List<Movie> Movies { get; set; } = new List<Movie>();
     }
 }

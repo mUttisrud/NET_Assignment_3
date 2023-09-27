@@ -10,23 +10,56 @@ namespace Assignment_3.Services.Franchises {
             _context = context;
         }
         public async Task<ICollection<Franchise>> GetAllAsync() {
-            return await _context.Franchises.ToListAsync();
+            return await _context.Franchises
+                .Include(franchise => franchise.Movies)
+                .ToListAsync();
         }
 
-        public Task<Franchise> AddAsync(Franchise obj) {
-            throw new NotImplementedException();
+        public async Task<Franchise> AddAsync(Franchise obj) {
+            await _context.Franchises.AddAsync(obj);
+            await _context.SaveChangesAsync();
+            return obj;
         }
 
-        public Task<Franchise> GetByIdAsync(int id) {
-            throw new NotImplementedException();
+        public async Task<Franchise> GetByIdAsync(int id) {
+            var franchise = await _context.Franchises
+                                .Where(franchise => franchise.Id == id)
+                                .Include(franchise => franchise.Movies)
+                                .FirstAsync();
+            if(franchise is null)
+                throw new EntityNotFoundException(nameof(franchise), id);
+
+            return franchise;
         }
 
-        public Task<Franchise> UpdateAsync(Franchise obj) {
-            throw new NotImplementedException();
+        private async Task<bool> FranchiseExistsAsync(int id)
+        {
+            return await _context.Franchises.AnyAsync(franchise => franchise.Id == id);
         }
 
-        public Task DeleteByIdAsync(int id) {
-            throw new NotImplementedException();
+        public async Task<Franchise> UpdateAsync(Franchise obj) {
+            if (!await FranchiseExistsAsync(obj.Id))
+                throw new EntityNotFoundException(nameof(obj), obj.Id);
+
+            obj.Movies.Clear();
+            _context.Entry(obj).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return obj;
+        }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            if (!await FranchiseExistsAsync(id))
+                throw new EntityNotFoundException(nameof(Franchise), id);
+
+            var franchise = await _context.Franchises
+                                .Where(franchise => franchise.Id == id)
+                                .FirstAsync();
+
+            franchise.Movies.Clear();
+            _context.Franchises.Remove(franchise);
+            await _context.SaveChangesAsync();
         }
     }
 }
