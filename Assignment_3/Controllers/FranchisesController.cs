@@ -37,7 +37,7 @@ namespace Assignment_3.Controllers {
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<FranchiseDTO>> GetFrancise(int id) {
+        public async Task<ActionResult<FranchiseDTO>> GetFranchise(int id) {
             try {
                 return Ok(_mapper.Map<FranchiseDTO>(
                     await _service.GetByIdAsync(id)));
