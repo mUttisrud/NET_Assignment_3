@@ -9,9 +9,10 @@ namespace Assignment_3.Mappers
         public CharacterProfile()
         {
             CreateMap<Character, CharacterDTO>()
-                .ForMember(characterDto => characterDto.Movies, options => options
-                    .MapFrom(character => character.Movies.Select(Movie => Movie.Title)));
+                .ForMember(characterDto => characterDto.MovieIds, options => options
+                    .MapFrom(character => character.Movies.Select(Movie => Movie.Id)));
 
+            CreateMap<Character, CharactersInMovieDTO>();
             CreateMap<Character, CharacterPostDTO>().ReverseMap();
             CreateMap<Character, CharacterPutDTO>().ReverseMap();
         }
