@@ -2,7 +2,7 @@
 
 namespace Assignment_3.Data.DTOs.Characters
 {
-    public class CharacterDTO
+    public class CharactersInMovieDTO
     {
         public int Id { get; set; }
         [MaxLength(50)]
@@ -13,6 +13,5 @@ namespace Assignment_3.Data.DTOs.Characters
         public string Gender { get; set; } = null!;
         [MaxLength(50)]
         public string? PictureUrl { get; set; }
-        public int[] MovieIds { get; set; }
     }
 }

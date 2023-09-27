@@ -5,5 +5,6 @@ namespace Assignment_3.Services.Movies
 {
     public interface IMovieService : ICrudService<Movie, int>
     {
+        Task<ICollection<Character>> GetAllCharactersByMovieIdAsync(int id);
     }
 }
