@@ -28,16 +28,19 @@ namespace Assignment_3
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
                     Version = "v1",
                     Title = "MoviesAPI",
                     Description = "An ASP.NET Core Web API for managing movies, characters and franchises",
                     TermsOfService = new Uri("https://example.com/terms"),
-                    Contact = new OpenApiContact {
+                    Contact = new OpenApiContact
+                    {
                         Name = "Magnus & Silje",
                         Url = new Uri("https://github.com/mUttisrud/NET_Assignment_3/")
                     },
-                    License = new OpenApiLicense {
+                    License = new OpenApiLicense
+                    {
                         Name = "Example License",
                         Url = new Uri("https://example.com/license")
                     }

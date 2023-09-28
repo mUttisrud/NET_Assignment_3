@@ -7,17 +7,20 @@ using Assignment_3.Services.Movies;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Assignment_3.Controllers {
+namespace Assignment_3.Controllers
+{
 
     [Route("api/v1/Franchises")]
     [Produces("application/json")]
     //[ApiConventionType(typeof(DefaultApiConventions))] //This gives the correct status codes in the swagger docs
     [ApiController]
-    public class FranchiseController : ControllerBase {
+    public class FranchiseController : ControllerBase
+    {
         private readonly IFranchiseService _service;
         private readonly IMapper _mapper;
 
-        public FranchiseController(IFranchiseService service, IMapper mapper) {
+        public FranchiseController(IFranchiseService service, IMapper mapper)
+        {
             _service = service;
             _mapper = mapper;
         }
@@ -27,7 +30,8 @@ namespace Assignment_3.Controllers {
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FranchiseDTO>>> GetFranchises() {
+        public async Task<ActionResult<IEnumerable<FranchiseDTO>>> GetFranchises()
+        {
             return Ok(_mapper.Map<IEnumerable<FranchiseDTO>>(await _service.GetAllAsync()));
         }
 
@@ -37,12 +41,15 @@ namespace Assignment_3.Controllers {
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<FranchiseDTO>> GetFranchise(int id) {
-            try {
+        public async Task<ActionResult<FranchiseDTO>> GetFranchise(int id)
+        {
+            try
+            {
                 return Ok(_mapper.Map<FranchiseDTO>(
                     await _service.GetByIdAsync(id)));
             }
-            catch (EntityNotFoundException ex) {
+            catch (EntityNotFoundException ex)
+            {
                 return NotFound(ex.Message);
 
             }
@@ -55,14 +62,18 @@ namespace Assignment_3.Controllers {
         /// <param name="franchise"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFranchise(int id, FranchisePutDTO franchise) {
-            if (id != franchise.Id) {
+        public async Task<IActionResult> PutFranchise(int id, FranchisePutDTO franchise)
+        {
+            if (id != franchise.Id)
+            {
                 return BadRequest();
             }
-            try {
+            try
+            {
                 await _service.UpdateAsync(_mapper.Map<Franchise>(franchise));
             }
-            catch (EntityNotFoundException ex) {
+            catch (EntityNotFoundException ex)
+            {
                 return NotFound(ex.Message);
             }
             return NoContent();
@@ -74,12 +85,15 @@ namespace Assignment_3.Controllers {
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFranchise(int id) {
-            try {
+        public async Task<IActionResult> DeleteFranchise(int id)
+        {
+            try
+            {
                 await _service.DeleteByIdAsync(id);
                 return NoContent();
             }
-            catch (EntityNotFoundException ex) {
+            catch (EntityNotFoundException ex)
+            {
                 return NotFound(ex.Message);
             }
         }
@@ -90,7 +104,8 @@ namespace Assignment_3.Controllers {
         /// <param name="franchise"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<FranchiseDTO>> PostFranchise(FranchisePostDTO franchise) {
+        public async Task<ActionResult<FranchiseDTO>> PostFranchise(FranchisePostDTO franchise)
+        {
             var newFranchise = await _service.AddAsync(_mapper.Map<Franchise>(franchise));
 
             return CreatedAtAction("GetFranchise",

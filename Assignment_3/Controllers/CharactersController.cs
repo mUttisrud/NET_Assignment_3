@@ -5,16 +5,19 @@ using Assignment_3.Data.DTOs.Characters;
 using AutoMapper;
 using Assignment_3.Data.Exceptions;
 
-namespace Assignment_3.Controllers {
+namespace Assignment_3.Controllers
+{
     [Route("api/v1/Characters")]
     [Produces("application/json")]
-    [ApiConventionType(typeof(DefaultApiConventions))] 
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
-    public class CharactersController : ControllerBase {
+    public class CharactersController : ControllerBase
+    {
         private readonly ICharacterService _service;
         private readonly IMapper _mapper;
 
-        public CharactersController(ICharacterService service, IMapper mapper) {
+        public CharactersController(ICharacterService service, IMapper mapper)
+        {
             _service = service;
             _mapper = mapper;
         }
@@ -24,7 +27,8 @@ namespace Assignment_3.Controllers {
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters() {
+        public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters()
+        {
             return Ok(_mapper.Map<IEnumerable<CharacterDTO>>(await _service.GetAllAsync()));
         }
 
@@ -34,12 +38,15 @@ namespace Assignment_3.Controllers {
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<CharacterDTO>> GetCharacter(int id) {
-            try {
+        public async Task<ActionResult<CharacterDTO>> GetCharacter(int id)
+        {
+            try
+            {
                 return Ok(_mapper.Map<CharacterDTO>(
                     await _service.GetByIdAsync(id)));
             }
-            catch (EntityNotFoundException ex) {
+            catch (EntityNotFoundException ex)
+            {
                 return NotFound(ex.Message);
             }
         }
@@ -51,15 +58,19 @@ namespace Assignment_3.Controllers {
         /// <param name="Character"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter(int id, CharacterPutDTO Character) {
-            if (id != Character.Id) {
+        public async Task<IActionResult> PutCharacter(int id, CharacterPutDTO Character)
+        {
+            if (id != Character.Id)
+            {
                 return BadRequest();
             }
 
-            try {
+            try
+            {
                 await _service.UpdateAsync(_mapper.Map<Character>(Character));
             }
-            catch (EntityNotFoundException ex) {
+            catch (EntityNotFoundException ex)
+            {
                 return NotFound(ex.Message);
             }
 
@@ -72,7 +83,8 @@ namespace Assignment_3.Controllers {
         /// <param name="Character"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<CharacterDTO>> PostCharacter(CharacterPostDTO Character) {
+        public async Task<ActionResult<CharacterDTO>> PostCharacter(CharacterPostDTO Character)
+        {
             var newCharacter = await _service.AddAsync(_mapper.Map<Character>(Character));
 
             return CreatedAtAction("GetCharacter",
@@ -86,12 +98,15 @@ namespace Assignment_3.Controllers {
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCharacter(int id) {
-            try {
+        public async Task<IActionResult> DeleteCharacter(int id)
+        {
+            try
+            {
                 await _service.DeleteByIdAsync(id);
                 return NoContent();
             }
-            catch (EntityNotFoundException ex) {
+            catch (EntityNotFoundException ex)
+            {
                 return NotFound(ex.Message);
             }
         }

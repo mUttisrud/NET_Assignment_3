@@ -39,7 +39,7 @@ namespace Assignment_3.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
+        public async Task<ActionResult<MovieGetDTO>> GetMovie(int id)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Assignment_3.Controllers
         {
             var newMovie = await _service.AddAsync(_mapper.Map<Movie>(movie));
 
-            return CreatedAtAction("GetMovie", 
+            return CreatedAtAction("GetMovie",
                 new { id = newMovie.Id },
                 _mapper.Map<MovieGetDTO>(newMovie));
         }
