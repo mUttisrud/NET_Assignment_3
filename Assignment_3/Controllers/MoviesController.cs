@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Assignment_3.Data.Models;
 using Assignment_3.Services.Movies;
 using Assignment_3.Data.DTOs.Movies;
-using Microsoft.VisualBasic;
 using AutoMapper;
 using Assignment_3.Data.Exceptions;
 using Assignment_3.Data.DTOs.Characters;
@@ -16,6 +9,8 @@ using Assignment_3.Data.DTOs.Characters;
 namespace Assignment_3.Controllers
 {
     [Route("api/v1/Movies")]
+    [Produces("application/json")]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     public class MoviesController : ControllerBase
     {
@@ -28,13 +23,21 @@ namespace Assignment_3.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Movies
+        /// <summary>
+        ///     Get all movies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieGetDTO>>> GetMovies()
         {
             return Ok(_mapper.Map<IEnumerable<MovieGetDTO>>(await _service.GetAllAsync()));
         }
 
+        /// <summary>
+        ///     Get one movie by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<MovieGetDTO>> GetMovie(int id)
         {
@@ -49,8 +52,14 @@ namespace Assignment_3.Controllers
             }
         }
 
+        /// <summary>
+        ///     Update one movie
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="movie"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, MoviePutDTO movie)
+        public async Task<IActionResult> UpdateMovie(int id, MoviePutDTO movie)
         {
             if (id != movie.Id)
             {
@@ -69,16 +78,26 @@ namespace Assignment_3.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Add a new movie
+        /// </summary>
+        /// <param name="movie"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<MovieGetDTO>> PostMovie(MoviePostDTO movie)
+        public async Task<ActionResult<MovieGetDTO>> AddMovie(MoviePostDTO movie)
         {
             var newMovie = await _service.AddAsync(_mapper.Map<Movie>(movie));
 
-            return CreatedAtAction("GetMovie", 
+            return CreatedAtAction("GetMovie",
                 new { id = newMovie.Id },
                 _mapper.Map<MovieGetDTO>(newMovie));
         }
 
+        /// <summary>
+        ///     Delete one movie
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
@@ -93,6 +112,11 @@ namespace Assignment_3.Controllers
             }
         }
 
+        /// <summary>
+        ///     Get characters in movie
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}/Characters")]
         public async Task<ActionResult<IEnumerable<CharactersListDTO>>> GetCharactersInMovie(int id)
         {

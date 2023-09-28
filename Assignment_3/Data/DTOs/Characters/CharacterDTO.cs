@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Assignment_3.Data.DTOs.Characters
-{
-    public class CharacterDTO
-    {
+namespace Assignment_3.Data.DTOs.Characters {
+    public class CharacterDTO {
         public int Id { get; set; }
         [MaxLength(50)]
         public string Name { get; set; } = null!;

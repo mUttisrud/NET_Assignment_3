@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Assignment_3</name>
+    </assembly>
+    <members>
+        <member name="M:Assignment_3.Controllers.CharactersController.GetCharacters">
+            <summary>
+                Get all characters
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.CharactersController.GetCharacter(System.Int32)">
+            <summary>
+                Get one character by ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.CharactersController.PutCharacter(System.Int32,Assignment_3.Data.DTOs.Characters.CharacterPutDTO)">
+            <summary>
+                Update one character
+            </summary>
+            <param name="id"></param>
+            <param name="Character"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.CharactersController.PostCharacter(Assignment_3.Data.DTOs.Characters.CharacterPostDTO)">
+            <summary>
+                Add a new character
+            </summary>
+            <param name="Character"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.CharactersController.DeleteCharacter(System.Int32)">
+            <summary>
+                Delete one character
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.GetFranchises">
+            <summary>
+                Gets all franchises
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.GetFranchise(System.Int32)">
+            <summary>
+                Get one franchise by ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.PutFranchise(System.Int32,Assignment_3.Data.DTOs.Franchises.FranchisePutDTO)">
+            <summary>
+                Update one franchise
+            </summary>
+            <param name="id"></param>
+            <param name="franchise"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.DeleteFranchise(System.Int32)">
+            <summary>
+                Delete one franchise
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.PostFranchise(Assignment_3.Data.DTOs.Franchises.FranchisePostDTO)">
+            <summary>
+                Add a new franchise
+            </summary>
+            <param name="franchise"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.GetCharacters(System.Int32)">
+            <summary>
+                Get characters in franchise
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.FranchiseController.GetMovies(System.Int32)">
+            <summary>
+                Get movies in franchise
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.MoviesController.GetMovies">
+            <summary>
+                Get all movies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.MoviesController.GetMovie(System.Int32)">
+            <summary>
+                Get one movie by ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.MoviesController.UpdateMovie(System.Int32,Assignment_3.Data.DTOs.Movies.MoviePutDTO)">
+            <summary>
+                Update one movie
+            </summary>
+            <param name="id"></param>
+            <param name="movie"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.MoviesController.AddMovie(Assignment_3.Data.DTOs.Movies.MoviePostDTO)">
+            <summary>
+                Add a new movie
+            </summary>
+            <param name="movie"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.MoviesController.DeleteMovie(System.Int32)">
+            <summary>
+                Delete one movie
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Assignment_3.Controllers.MoviesController.GetCharactersInMovie(System.Int32)">
+            <summary>
+                Get characters in movie
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Assignment_3.Migrations.InitDb">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.InitDb.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.InitDb.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.InitDb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Assignment_3.Migrations.CharacterMovieRelationship">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.CharacterMovieRelationship.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.CharacterMovieRelationship.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.CharacterMovieRelationship.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Assignment_3.Migrations.MovieFranchiseRelationship">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.MovieFranchiseRelationship.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.MovieFranchiseRelationship.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.MovieFranchiseRelationship.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Assignment_3.Migrations.DataSeed">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.DataSeed.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.DataSeed.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Assignment_3.Migrations.DataSeed.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

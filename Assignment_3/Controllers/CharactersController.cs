@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Assignment_3.Data.Models;
 using Assignment_3.Services.Characters;
 using Assignment_3.Data.DTOs.Characters;
-using Microsoft.VisualBasic;
 using AutoMapper;
 using Assignment_3.Data.Exceptions;
 
 namespace Assignment_3.Controllers
 {
     [Route("api/v1/Characters")]
+    [Produces("application/json")]
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [ApiController]
     public class CharactersController : ControllerBase
     {
@@ -27,13 +22,21 @@ namespace Assignment_3.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Characters
+        /// <summary>
+        ///     Get all characters
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterDTO>>> GetCharacters()
         {
             return Ok(_mapper.Map<IEnumerable<CharacterDTO>>(await _service.GetAllAsync()));
         }
 
+        /// <summary>
+        ///     Get one character by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<CharacterDTO>> GetCharacter(int id)
         {
@@ -48,6 +51,12 @@ namespace Assignment_3.Controllers
             }
         }
 
+        /// <summary>
+        ///     Update one character
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="Character"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCharacter(int id, CharacterPutDTO Character)
         {
@@ -68,6 +77,11 @@ namespace Assignment_3.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        ///     Add a new character
+        /// </summary>
+        /// <param name="Character"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<CharacterDTO>> PostCharacter(CharacterPostDTO Character)
         {
@@ -78,6 +92,11 @@ namespace Assignment_3.Controllers
                 _mapper.Map<CharacterDTO>(newCharacter));
         }
 
+        /// <summary>
+        ///     Delete one character
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCharacter(int id)
         {

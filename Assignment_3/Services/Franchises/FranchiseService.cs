@@ -4,8 +4,7 @@ using Assignment_3.Services.Movies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Assignment_3.Services.Franchises {
-    public class FranchiseService : IFranchiseService 
-    {
+    public class FranchiseService : IFranchiseService {
         private readonly Assignment3DbContext _context;
         public FranchiseService(Assignment3DbContext context) {
             _context = context;
@@ -27,14 +26,13 @@ namespace Assignment_3.Services.Franchises {
                                 .Where(franchise => franchise.Id == id)
                                 .Include(franchise => franchise.Movies)
                                 .FirstAsync();
-            if(franchise is null)
+            if (franchise is null)
                 throw new EntityNotFoundException(nameof(franchise), id);
 
             return franchise;
         }
 
-        private async Task<bool> FranchiseExistsAsync(int id)
-        {
+        private async Task<bool> FranchiseExistsAsync(int id) {
             return await _context.Franchises.AnyAsync(franchise => franchise.Id == id);
         }
 
@@ -49,8 +47,7 @@ namespace Assignment_3.Services.Franchises {
             return obj;
         }
 
-        public async Task DeleteByIdAsync(int id)
-        {
+        public async Task DeleteByIdAsync(int id) {
             if (!await FranchiseExistsAsync(id))
                 throw new EntityNotFoundException(nameof(Franchise), id);
 
@@ -63,24 +60,21 @@ namespace Assignment_3.Services.Franchises {
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<Character>> GetCharactersAsync(int id)
-        {
+        public async Task<ICollection<Character>> GetCharactersAsync(int id) {
             if (!await FranchiseExistsAsync(id))
                 throw new EntityNotFoundException(nameof(Franchise), id);
 
             var franchise = await _context.Franchises
                 .Where(franchise => franchise.Id == id)
-                .Include(franchise => franchise.Movies) 
+                .Include(franchise => franchise.Movies)
                 .ThenInclude(movie => movie.Characters)
                 .FirstAsync();
 
             List<Character> characters = new List<Character>();
 
-            foreach (Movie movie in franchise.Movies)
-            {
-                foreach (Character character in movie.Characters)
-                {
-                    if(!characters.Contains(character))
+            foreach (Movie movie in franchise.Movies) {
+                foreach (Character character in movie.Characters) {
+                    if (!characters.Contains(character))
                         characters.Add(character);
                 }
             }
@@ -88,8 +82,7 @@ namespace Assignment_3.Services.Franchises {
             return characters;
         }
 
-        public async Task<ICollection<Movie>> GetMoviesAsync(int id)
-        {
+        public async Task<ICollection<Movie>> GetMoviesAsync(int id) {
             if (!await FranchiseExistsAsync(id))
                 throw new EntityNotFoundException(nameof(Franchise), id);
 
@@ -100,8 +93,7 @@ namespace Assignment_3.Services.Franchises {
 
             List<Movie> movies = new List<Movie>();
 
-            foreach(Movie movie in franchise.Movies)
-            {
+            foreach (Movie movie in franchise.Movies) {
                 movies.Add(movie);
             }
 
