@@ -45,7 +45,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Assignment_3.Controllers.FranchiseController.GetFrancise(System.Int32)">
+        <member name="M:Assignment_3.Controllers.FranchiseController.GetFranchise(System.Int32)">
             <summary>
                 Get one franchise by ID
             </summary>
@@ -67,7 +67,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Assignment_3.Controllers.FranchiseController.PostMovie(Assignment_3.Data.DTOs.Franchises.FranchisePostDTO)">
+        <member name="M:Assignment_3.Controllers.FranchiseController.PostFranchise(Assignment_3.Data.DTOs.Franchises.FranchisePostDTO)">
             <summary>
                 Add a new franchise
             </summary>

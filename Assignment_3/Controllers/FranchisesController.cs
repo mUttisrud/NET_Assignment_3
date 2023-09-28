@@ -11,7 +11,7 @@ namespace Assignment_3.Controllers {
 
     [Route("api/v1/Franchises")]
     [Produces("application/json")]
-    [ApiConventionType(typeof(DefaultApiConventions))] //This gives the correct status codes in the swagger docs
+    //[ApiConventionType(typeof(DefaultApiConventions))] //This gives the correct status codes in the swagger docs
     [ApiController]
     public class FranchiseController : ControllerBase {
         private readonly IFranchiseService _service;
@@ -90,13 +90,14 @@ namespace Assignment_3.Controllers {
         /// <param name="franchise"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<FranchisePostDTO>> PostMovie(FranchisePostDTO franchise) {
+        public async Task<ActionResult<FranchiseDTO>> PostFranchise(FranchisePostDTO franchise) {
             var newFranchise = await _service.AddAsync(_mapper.Map<Franchise>(franchise));
 
             return CreatedAtAction("GetFranchise",
                 new { id = newFranchise.Id },
-                _mapper.Map<FranchisePostDTO>(newFranchise));
+                _mapper.Map<FranchiseDTO>(newFranchise));
         }
+
         /// <summary>
         ///     Get characters in franchise
         /// </summary>
